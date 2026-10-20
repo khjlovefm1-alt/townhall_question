@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>현장에 더하다+ | 부문장님께 묻고 싶은 질문</title>
+<meta name="description" content="10월 27일 네트워크부문 타운홀미팅, 현장에 함께하지 못하는 분들의 질문을 받습니다.">
+<meta property="og:title" content="현장에 더하다+ | 부문장님께 묻고 싶은 질문">
+<meta property="og:description" content="궁금한 주제에 자유롭게 질문을 남겨주세요. 추첨을 통해 선물을 드립니다.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    --red:#E61E2B; --red-dark:#C4141F; --red-soft:#FDECEE;
+    --ink:#1A1A1A; --sub:#5F6368; --line:#E6E6E6; --bg:#F6F6F7; --card:#FFFFFF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;word-break:keep-all}
+  .wrap{max-width:640px;margin:0 auto;padding:0 16px}
+
+  /* Hero */
+  .hero{background:var(--red);color:#fff;padding:48px 0 40px}
+  .eyebrow{font-size:12px;letter-spacing:.18em;font-weight:600;opacity:.9}
+  .hero h1{font-size:44px;line-height:1.15;font-weight:800;margin:14px 0 12px;letter-spacing:-.02em}
+  .hero p{font-size:16px;opacity:.95}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .chip{font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.18)}
+  .chip.strong{background:#fff;color:var(--red)}
+
+  main{padding:24px 0 64px}
+  .card{background:var(--card);border-radius:16px;padding:24px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .intro{font-size:15px;color:var(--sub)}
+  .intro b{color:var(--ink)}
+
+  .sec-no{font-size:12px;font-weight:700;color:var(--red);letter-spacing:.12em}
+  .sec-title{font-size:20px;font-weight:700;margin:4px 0 6px;letter-spacing:-.01em}
+  .sec-desc{font-size:14px;color:var(--sub);margin-bottom:18px}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;vertical-align:2px;margin-left:6px}
+  .tag.req{background:var(--red-soft);color:var(--red)}
+  .tag.opt{background:#EFEFEF;color:var(--sub)}
+
+  .topic{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px;transition:border-color .15s}
+  .topic:focus-within{border-color:var(--red)}
+  .topic.filled{border-color:var(--red);background:#FFFBFB}
+  .topic label{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px;margin-bottom:8px}
+  .num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;
+    background:var(--red);color:#fff;font-size:12px;font-weight:700;flex-shrink:0}
+
+  textarea,input[type=text],input[type=tel]{width:100%;font:inherit;font-size:15px;color:var(--ink);
+    border:1px solid var(--line);border-radius:10px;padding:12px;background:#fff;outline:none;resize:vertical}
+  .topic textarea{border:none;padding:4px 0 0;min-height:56px;background:transparent}
+  textarea:focus,input:focus{border-color:var(--red)}
+  ::placeholder{color:#A0A4A8}
+
+  .counter{position:sticky;bottom:12px;margin-top:6px;text-align:center}
+  .counter span{display:inline-block;background:var(--ink);color:#fff;font-size:13px;font-weight:600;
+    padding:7px 14px;border-radius:999px;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+
+  /* Event */
+  .toggle{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;cursor:pointer}
+  .toggle input{width:20px;height:20px;accent-color:var(--red)}
+  .event-body{display:none;margin-top:18px}
+  .event-body.open{display:block}
+  .consent{background:var(--bg);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--sub)}
+  .consent dt{font-weight:700;color:var(--ink);float:left;width:72px}
+  .consent dd{margin-left:72px;margin-bottom:4px}
+  .consent p{margin-top:8px;font-size:12px}
+  .radios{display:flex;gap:16px;margin:14px 0 18px;font-size:15px}
+  .radios label{display:flex;align-items:center;gap:6px;cursor:pointer}
+  .radios input{accent-color:var(--red);width:18px;height:18px}
+  .field{margin-bottom:12px}
+  .field label{display:block;font-size:13px;font-weight:600;color:var(--sub);margin-bottom:6px}
+  .fields.disabled{opacity:.4;pointer-events:none}
+
+  .error{display:none;color:var(--red);font-size:14px;font-weight:600;text-align:center;margin:8px 0 12px}
+  .error.show{display:block}
+  .submit{width:100%;font:inherit;font-size:17px;font-weight:700;color:#fff;background:var(--red);
+    border:none;border-radius:12px;padding:17px;cursor:pointer;transition:background .15s}
+  .submit:hover{background:var(--red-dark)}
+  .submit:disabled{background:#C9C9C9;cursor:default}
+  .foot{text-align:center;font-size:12px;color:#9AA0A6;margin-top:20px}
+
+  /* Result screens */
+  .screen{display:none;text-align:center;padding:64px 20px}
+  .screen.show{display:block}
+  .screen .big{font-size:48px;color:var(--red);font-weight:800;line-height:1}
+  .screen h2{font-size:22px;margin:18px 0 8px}
+  .screen p{color:var(--sub);font-size:15px}
+
+  @media (max-width:420px){ .hero h1{font-size:36px} .hero{padding:40px 0 32px} }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">KT TOWN HALL MEETING</div>
+    <h1>현장에<br>더하다+</h1>
+    <p>네트워크부문장님께 묻고 싶은 질문을 남겨주세요</p>
+    <div class="chips">
+      <span class="chip">10.27(화) 혜화사옥</span>
+      <span class="chip strong">마감 10.23(금) 18:00</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 설문 -->
+  <form id="form" novalidate>
+    <div class="card intro">
+      10월 27일, 네트워크부문장님과 직원들이 함께하는 타운홀미팅이 열립니다.
+      현장에 함께하지 못하는 분들의 목소리도 담고 싶습니다.<br><br>
+      궁금한 주제에 자유롭게 질문을 남겨주세요. <b>한 개만 써도, 여러 개 써도 좋습니다.</b>
+      질문을 남겨주신 분 중 추첨을 통해 소정의 선물을 드립니다.
+    </div>
+
+    <section class="card">
+      <div class="sec-no">01</div>
+      <h2 class="sec-title">부문장님께 묻고 싶은 질문<span class="tag req">최소 1개</span></h2>
+      <p class="sec-desc">궁금한 주제에만 작성하시면 됩니다.</p>
+
+      <div class="topic"><label for="q1"><span class="num">1</span>동료 존중과 팀워크</label>
+        <textarea id="q1" maxlength="500" rows="2" placeholder="예) 부문장님이 생각하는 존중받는 조직은 어떤 모습인가요?"></textarea></div>
+      <div class="topic"><label for="q2"><span class="num">2</span>일하는 환경과 업무 방식</label>
+        <textarea id="q2" maxlength="500" rows="2" placeholder="예) 현장 업무 부담을 줄이기 위해 계획하신 것이 있나요?"></textarea></div>
+      <div class="topic"><label for="q3"><span class="num">3</span>휴식과 회복</label>
+        <textarea id="q3" maxlength="500" rows="2" placeholder="예) 휴가를 눈치 보지 않고 쓰는 문화, 어떻게 만들 수 있을까요?"></textarea></div>
+      <div class="topic"><label for="q4"><span class="num">4</span>부문의 방향과 비전</label>
+        <textarea id="q4" maxlength="500" rows="2" placeholder="예) 앞으로 우리 부문이 가장 집중할 부분은 무엇인가요?"></textarea></div>
+      <div class="topic"><label for="q5"><span class="num">5</span>부문장님 개인 이야기</label>
+        <textarea id="q5" maxlength="500" rows="2" placeholder="예) 힘들 때 부문장님만의 회복 방법은 무엇인가요?"></textarea></div>
+      <div class="topic"><label for="q6"><span class="num">6</span>기타 자유 질문</label>
+        <textarea id="q6" maxlength="500" rows="2" placeholder="위 주제 외에 궁금한 점을 자유롭게 적어주세요."></textarea></div>
+
+      <div class="counter"><span id="count">작성한 질문 0개</span></div>
+    </section>
+
+    <section class="card">
+      <div class="sec-no">02</div>
+      <h2 class="sec-title">지키고 싶은 문화, 바꾸고 싶은 것<span class="tag opt">선택</span></h2>
+      <p class="sec-desc">우리 부문에서 '이것만은 지키고 싶다' 또는 '이것만은 바꾸고 싶다'가 있다면?</p>
+      <textarea id="keep" maxlength="500" rows="3" placeholder="자유롭게 적어주세요."></textarea>
+    </section>
+
+    <section class="card">
+      <div class="sec-no">03</div>
+      <h2 class="sec-title">고마운 동료에게 응원 한마디<span class="tag opt">선택</span></h2>
+      <p class="sec-desc">일부는 타운홀미팅 현장에서 소개될 수 있습니다.</p>
+      <textarea id="cheer" maxlength="300" rows="3" placeholder="예) ○○ 선배님, 늘 먼저 챙겨주셔서 감사합니다!"></textarea>
+    </section>
+
+    <section class="card">
+      <div class="sec-no">EVENT</div>
+      <label class="toggle"><input type="checkbox" id="eventOn">경품 추첨 이벤트 참여하기</label>
+      <p class="sec-desc" style="margin:6px 0 0">참여를 원하시는 분만 체크해주세요.</p>
+
+      <div class="event-body" id="eventBody">
+        <div class="consent">
+          <strong style="display:block;color:var(--ink);margin-bottom:8px">개인정보 수집·이용 동의</strong>
+          <dl>
+            <dt>수집 항목</dt><dd>이름, 소속(팀), 연락처</dd>
+            <dt>이용 목적</dt><dd>경품 추첨 및 발송</dd>
+            <dt>보유 기간</dt><dd>경품 발송 완료 후 즉시 파기</dd>
+          </dl>
+          <p>동의를 거부하실 수 있으며, 거부 시 이벤트 참여만 제한됩니다.</p>
+        </div>
+        <div class="radios">
+          <label><input type="radio" name="consent" value="yes">동의합니다</label>
+          <label><input type="radio" name="consent" value="no">동의하지 않습니다</label>
+        </div>
+        <div class="fields disabled" id="fields">
+          <div class="field"><label for="name">이름</label><input type="text" id="name" maxlength="20" autocomplete="name"></div>
+          <div class="field"><label for="team">소속(팀)</label><input type="text" id="team" maxlength="40" placeholder="예) ○○본부 ○○팀"></div>
+          <div class="field"><label for="phone">연락처</label><input type="tel" id="phone" maxlength="20" placeholder="010-0000-0000" autocomplete="tel"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="error" id="error"></div>
+    <button type="submit" class="submit" id="submitBtn">질문 보내기</button>
+    <p class="foot">KT 인재실 | 현장에 더하다+</p>
+  </form>
+
+  <!-- 완료 화면 -->
+  <div class="screen" id="done">
+    <div class="big">+</div>
+    <h2>소중한 질문 감사합니다</h2>
+    <p>보내주신 질문은 10월 27일 타운홀미팅에서 활용됩니다.<br>현장에서 다루지 못한 질문은 카드뉴스로 답변드릴게요.</p>
+  </div>
+
+  <!-- 마감 화면 -->
+  <div class="screen" id="closed">
+    <div class="big">+</div>
+    <h2>질문 접수가 마감되었습니다</h2>
+    <p>참여해주신 모든 분께 감사드립니다.<br>타운홀미팅 결과는 카드뉴스로 공유드릴게요.</p>
+  </div>
+
+</main>
+
+<script>
+  /* ===== 설정: Apps Script 웹앱 URL을 붙여넣으세요 ===== */
+  const ENDPOINT = 'https://script.google.com/macros/s/AKfycby4Ve55K7HOhAkL4znb4uAKorkmfvYa_K_0TPS84Y1KOBAUCN8TI8_BMmEYqxGXjKfL/exec';
+  const DEADLINE = new Date('2026-10-23T18:00:00+09:00');
+  /* ===================================================== */
+
+  const $ = id => document.getElementById(id);
+  const qIds = ['q1','q2','q3','q4','q5','q6'];
+  const form = $('form'), errorBox = $('error'), btn = $('submitBtn');
+
+  if (new Date() > DEADLINE) { form.style.display = 'none'; $('closed').classList.add('show'); }
+
+  // 작성 개수 카운터
+  function updateCount(){
+    let n = 0;
+    qIds.forEach(id => {
+      const filled = $(id).value.trim().length > 0;
+      $(id).closest('.topic').classList.toggle('filled', filled);
+      if (filled) n++;
+    });
+    $('count').textContent = '작성한 질문 ' + n + '개';
+    return n;
+  }
+  qIds.forEach(id => $(id).addEventListener('input', updateCount));
+
+  // 이벤트 영역
+  $('eventOn').addEventListener('change', e => $('eventBody').classList.toggle('open', e.target.checked));
+  document.querySelectorAll('input[name=consent]').forEach(r => r.addEventListener('change', () => {
+    $('fields').classList.toggle('disabled', consentValue() !== 'yes');
+  }));
+  function consentValue(){ const c = document.querySelector('input[name=consent]:checked'); return c ? c.value : ''; }
+
+  function showError(msg){ errorBox.textContent = msg; errorBox.classList.add('show'); }
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    errorBox.classList.remove('show');
+
+    if (new Date() > DEADLINE) { showError('접수가 마감되었습니다.'); return; }
+    if (updateCount() === 0) { showError('질문을 1개 이상 작성해주세요.'); $('q1').focus(); return; }
+
+    const eventOn = $('eventOn').checked;
+    let event = null;
+    if (eventOn) {
+      if (consentValue() !== 'yes') { showError('이벤트 참여를 원하시면 개인정보 수집·이용에 동의해주세요. 참여하지 않으시려면 체크를 해제해주세요.'); return; }
+      const name = $('name').value.trim(), team = $('team').value.trim(), phone = $('phone').value.trim();
+      if (!name || !team || !phone) { showError('이름, 소속, 연락처를 모두 입력해주세요.'); return; }
+      if (!/^[0-9\-\s]{9,20}$/.test(phone)) { showError('연락처를 숫자로 정확히 입력해주세요.'); $('phone').focus(); return; }
+      event = { consent: true, name, team, phone };
+    }
+
+    const payload = {
+      questions: qIds.map(id => $(id).value.trim()),
+      keep: $('keep').value.trim(),
+      cheer: $('cheer').value.trim(),
+      event
+    };
+
+    btn.disabled = true; btn.textContent = '보내는 중...';
+    try {
+      await fetch(ENDPOINT, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      });
+      form.style.display = 'none';
+      $('done').classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err) {
+      btn.disabled = false; btn.textContent = '질문 보내기';
+      showError('전송에 실패했습니다. 네트워크 상태를 확인하고 다시 시도해주세요.');
+    }
+  });
+</script>
+</body>
+</html>
